@@ -1,0 +1,26 @@
+.movieItemsContainer {
+    max-width: 1200px;
+    margin: 10px auto;
+    display: grid;
+    grid-template-areas: 
+    "card card card list"
+    "card card card list"
+    "card card card list"
+    "card card card list"
+    "card card card list"
+    "card card card list"
+    "card card card list";
+    
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    gap: 30px;
+}
+
+.card-body {
+    grid-area: card;
+}
+
+.watchList {
+    grid-area: list;
+}
