@@ -21,6 +21,7 @@ function MovieList(props) {
     <div className="d-flex justify-content-between align-items-center">
     <p className="card-text">{obj.vote_average}</p>
     <a href="#" className="btn btn-primary" onClick={this.props.willWatch.bind(this, props.movie)}>Will watch</a>
+    
     </div>
   </div>
 </div>)
