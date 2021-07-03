@@ -14,7 +14,7 @@ class App extends React.Component {
     this.state = {
       movies: [],
       moviesWillWatch: [],
-      sort_by: "popularity.desc"
+      sort_by: "popularity.desc",
     };
   }
   componentDidMount() {
@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(preProps, prevState) {
-    if(prevState.sort_by !== this.state.sort_by) {
+    if (prevState.sort_by !== this.state.sort_by) {
       this.getMovies();
     }
   }

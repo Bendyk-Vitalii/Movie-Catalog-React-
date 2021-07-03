@@ -1,20 +1,19 @@
 import React from "react";
 
 const MovieTabs = (props) => {
-    const { sort_by, updateSortBy } = props;
+  const { sort_by, updateSortBy } = props;
 
-    const handleClick = value => {
-        return event => {
-            updateSortBy(value);
-            console.log(value)
-        }
-        };
-        
-
-    const getClassByValue = value => {
-        console.log(value)
-        return `nav-link ${sort_by === value ? "active" : ""}`;
+  const handleClick = (value) => {
+    return (event) => {
+      updateSortBy(value);
+      console.log(value);
     };
+  };
+
+  const getClassByValue = (value) => {
+    console.log(value);
+    return `nav-link ${sort_by === value ? "active" : ""}`;
+  };
 
   return (
     <ul className="tabs nav nav-pills">
