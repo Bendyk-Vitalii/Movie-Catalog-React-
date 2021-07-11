@@ -21,7 +21,7 @@ class App extends React.Component {
     this.getMovies();
   }
 
-  componentDidUpdate(preProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.sort_by !== this.state.sort_by) {
       this.getMovies();
     }

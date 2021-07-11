@@ -1,17 +1,32 @@
 import React from "react";
 
-const MovieTabs = (props) => {
-  const { sort_by, updateSortBy } = props;
+class MovieTabs extends React.Component {
+  componentWillReceiveProps() {
+
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.sort_by !== this.props.sort_by) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+//Оптимизация если не поменялись пропсы. сортбай то ничего не надо рендерить.
+
+  render() {
+
+  const { sort_by, updateSortBy } = this.props;
 
   const handleClick = (value) => {
     return (event) => {
       updateSortBy(value);
-      console.log(value);
+      //console.log(value);
     };
   };
 
   const getClassByValue = (value) => {
-    console.log(value);
+    //console.log(value);
     return `nav-link ${sort_by === value ? "active" : ""}`;
   };
 
@@ -43,6 +58,7 @@ const MovieTabs = (props) => {
       </li>
     </ul>
   );
+  }
 };
 
 export default MovieTabs;
