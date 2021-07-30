@@ -6,6 +6,7 @@ import WillWatchList from "./WillWatchList";
 import MovieItem from "./MovieItem";
 import { API_URL, API_KEY_3, API_KEY_4 } from "../utils/api";
 import MovieTabs from "./movieTabs";
+import Filters from "./filters";
 
 class App extends React.Component {
   constructor() {
@@ -14,32 +15,57 @@ class App extends React.Component {
     this.state = {
       movies: [],
       moviesWillWatch: [],
-      sort_by: "popularity.desc",
+      
+      filters: {
+        sort_by: "popularity.desc",
+        /* sort_by: "popularity.asc",
+        sort_by: "vote_average.desc",
+        sort_by: "vote_average.asc", */
+      } 
     };
   }
-  componentDidMount() {
+   componentDidMount() {
     this.getMovies();
-  }
+  } 
 
-  componentDidUpdate(prevProps, prevState) {
+   componentDidUpdate(preProps, prevState) {
     if (prevState.sort_by !== this.state.sort_by) {
-      this.getMovies();
+      this.getMovies(this.state.sort_by);
     }
-  }
+  } 
 
-  getMovies = () => {
+  getMovies = (sort_by = "popularity.desc") => {
+    //console.log(this.state)
     fetch(
-      `${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sort_by}`
+      `${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${sort_by}`
     )
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         this.setState({
           movies: data.results,
         });
       });
+  };
+
+  getMoviesForFilters = filters => {
+    console.log(filters, "forFilters")
+     const { sort_by } = filters;
+    console.log(this.state)
+     fetch(
+      `${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${sort_by}`
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        //console.log(data);
+        this.setState({
+          movies: data.results,
+        });
+      });  
   };
 
   removeMovie = (movie) => {
@@ -59,6 +85,16 @@ class App extends React.Component {
     });
   };
 
+   onChangeFilters = event => {
+     const newFilters = {...this.state.sort_by,
+      [event.target.name]: event.target.value
+    };
+    this.setState({
+      sort_by: newFilters
+    });
+    console.log(this.state)
+  };
+
   removeMovieFromWillWatch = (movie) => {
     const updateMoviesWillWatch = this.state.moviesWillWatch.filter(function (
       item
@@ -70,11 +106,13 @@ class App extends React.Component {
     });
   };
 
-  updateSortBy = (value) => {
+   updateSortBy = (value) => {
+     /* console.log(this.state.sort_by) */
     this.setState({
       sort_by: value,
     });
-  };
+    console.log(this.state)
+  }; 
 
   WillWatchList(movies) {
     const addMovies = this.state.movies;
@@ -84,6 +122,7 @@ class App extends React.Component {
   }
 
   render() {
+    const {filters} = this.state;
     return (
       <div className="container">
         <div className="row mt-4">
@@ -103,6 +142,8 @@ class App extends React.Component {
                       removeMovie={this.removeMovie}
                       addMovieToWillWatch={this.addMovieToWillWatch}
                       removeMovieFromWillWatch={this.removeMovieFromWillWatch}
+                      filters={filters}
+                      getMovies={this.getMoviesForFilters}
                     />
                   </div>
                 );
@@ -110,6 +151,8 @@ class App extends React.Component {
             </div>
           </div>
           <div className="col-3">
+            <Filters  filters={filters} 
+            onChangeFilters = {this.onChangeFilters}/>
             <p>Will Watch: {this.state.moviesWillWatch.length}</p>
           </div>
         </div>

@@ -1,9 +1,7 @@
 import React from "react";
 
 class MovieTabs extends React.Component {
-  componentWillReceiveProps() {
 
-  }
 
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.sort_by !== this.props.sort_by) {
@@ -19,9 +17,9 @@ class MovieTabs extends React.Component {
   const { sort_by, updateSortBy } = this.props;
 
   const handleClick = (value) => {
-    return (event) => {
+    return () => {
       updateSortBy(value);
-      //console.log(value);
+      console.log({value});
     };
   };
 
@@ -32,6 +30,14 @@ class MovieTabs extends React.Component {
 
   return (
     <ul className="tabs nav nav-pills">
+      <li className="nav-item">
+        <div
+          className={getClassByValue("allMovies.desc")}
+          onClick={handleClick("allMovies.desc")}
+        >
+          All movies
+        </div>
+      </li>
       <li className="nav-item">
         <div
           className={getClassByValue("popularity.desc")}

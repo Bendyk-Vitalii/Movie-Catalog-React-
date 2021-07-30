@@ -24,3 +24,15 @@
 .watchList {
     grid-area: list;
 }
+
+ .card-body .btn {
+    
+    font-size: 0.8rem;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    width: 80%;
+} 
+
+.form-group label {
+  margin-bottom: 2px;  
+}
